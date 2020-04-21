@@ -65,6 +65,11 @@
         <option value="HUANG JIAJUN" />
       </list>
     </option>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="UPDATE_TYPE" value="MERGE" />
   </component>
@@ -179,11 +184,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.bp_threads" />
-        <item itemvalue="Application.copyFile" />
-        <item itemvalue="Application.redo" />
         <item itemvalue="Application.tiffToTxt" />
+        <item itemvalue="Application.redo" />
         <item itemvalue="Application.Net" />
+        <item itemvalue="Application.copyFile" />
+        <item itemvalue="Application.bp_threads" />
       </list>
     </recent_temporary>
   </component>
