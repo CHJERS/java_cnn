@@ -521,8 +521,8 @@ class bpHidenLayer extends HidenLayer{
         }
 
 
-        bpAPI.d_bpmat.put(0,bpmat);
-        bpAPI.d_bpbias.put(0,bpbias);
+        this.d_bpmat.put(0,bpmat);
+        this.d_bpbias.put(0,bpbias);
 
     }
 
@@ -534,8 +534,8 @@ class bpHidenLayer extends HidenLayer{
 
         HashMap new_d_bpmat=new HashMap();
         HashMap new_d_bpbias=new HashMap();
-        for(int n=0;n<bpAPI.d_bpmat.size();n++){
-            double[][][][][][][] bpmatt= (double[][][][][][][]) bpAPI.d_bpmat.get(n);
+        for(int n=0;n<this.d_bpmat.size();n++){
+            double[][][][][][][] bpmatt= (double[][][][][][][]) this.d_bpmat.get(n);
             int len_1=bpmatt.length;
             int len_2=bpmatt[0].length;
             int len_3=bpmatt[0][0].length;
@@ -558,9 +558,9 @@ class bpHidenLayer extends HidenLayer{
                                 bpbias[i][i][yhl][xhl]=1;
                                 //bpbias[i][i][yhl][xhl]=bias[i];
                                 //检查纠错
-                                for(int nu=0;nu<bpAPI.d_bpmat.size();nu++){
+                                for(int nu=0;nu<this.d_bpmat.size();nu++){
                                     double[][][][][][][] new_bpmatt=(double[][][][][][][]) new_d_bpmat.get(nu);
-                                    double[][][][][][][] old_bpmatt=(double[][][][][][][]) bpAPI.d_bpmat.get(nu);
+                                    double[][][][][][][] old_bpmatt=(double[][][][][][][]) this.d_bpmat.get(nu);
                                     for (int t=0;t<new_bpmatt.length;t++){
                                         for(int tt=0;tt<new_bpmatt[0].length;tt++){
                                             for(int ttt=0;ttt<new_bpmatt[0][0].length;ttt++){
@@ -569,7 +569,7 @@ class bpHidenLayer extends HidenLayer{
                                                 }
                                             }
                                         }
-                                        ((double[][][][]) new_d_bpbias.get(nu))[t][i][yhl][xhl]+=(((double[][][][]) bpAPI.d_bpbias.get(nu))[t][band][yhl*step+y][xhl*step+x])*KernelCount.AK[i][band][y][x];
+                                        ((double[][][][]) new_d_bpbias.get(nu))[t][i][yhl][xhl]+=(((double[][][][]) this.d_bpbias.get(nu))[t][band][yhl*step+y][xhl*step+x])*KernelCount.AK[i][band][y][x];
                                     }
                                 }
 
@@ -582,17 +582,17 @@ class bpHidenLayer extends HidenLayer{
             }
         }
 
-        bpAPI.d_bpmat.clear();
-        bpAPI.d_bpmat.putAll(new_d_bpmat);
-        bpAPI.d_bpmat.put(bpAPI.d_bpmat.size(),bpmat);
-        bpAPI.d_bpbias.clear();
-        bpAPI.d_bpbias.putAll(new_d_bpbias);
-        bpAPI.d_bpbias.put(bpAPI.d_bpbias.size(),bpbias);
+        /*this.d_bpmat.clear();
+        this.d_bpmat.putAll(new_d_bpmat);
+        this.d_bpmat.put(this.d_bpmat.size(),bpmat);
+        this.d_bpbias.clear();
+        this.d_bpbias.putAll(new_d_bpbias);
+        this.d_bpbias.put(this.d_bpbias.size(),bpbias);
 
-        /*bpAPI.d_bpmat=new_d_bpmat;
-        bpAPI.d_bpmat.put(bpAPI.d_bpmat.size(),bpmat);
-        bpAPI.d_bpbias=new_d_bpbias;
-        bpAPI.d_bpbias.put(bpAPI.d_bpbias.size(),bpbias);*/
+        /*this.d_bpmat=new_d_bpmat;
+        this.d_bpmat.put(this.d_bpmat.size(),bpmat);
+        this.d_bpbias=new_d_bpbias;
+        this.d_bpbias.put(this.d_bpbias.size(),bpbias);*/
 
     }
 
@@ -650,8 +650,8 @@ class bpHidenLayer extends HidenLayer{
         this.KernelCount= new Array_Kernel(AK_size);
         biasIniting(KernelCount.length);
 
-        bpAPI.d_bpmat=d_bpmat;
-        bpAPI.d_bpbias=d_bpbias;
+        this.d_bpmat=d_bpmat;
+        this.d_bpbias=d_bpbias;
 
         receive(IL);
 
@@ -662,8 +662,8 @@ class bpHidenLayer extends HidenLayer{
         this.KernelCount= new Array_Kernel(AK_size);
         biasIniting(KernelCount.length);
 
-        bpAPI.d_bpmat=d_bpmat;
-        bpAPI.d_bpbias=d_bpbias;
+        this.d_bpmat=d_bpmat;
+        this.d_bpbias=d_bpbias;
 
         receive(IL_mat);
 
@@ -676,8 +676,8 @@ class bpHidenLayer extends HidenLayer{
         this.KernelCount= new Array_Kernel(AK_size);
         biasIniting(KernelCount.length);
 
-        bpAPI.d_bpmat=d_bpmat;
-        bpAPI.d_bpbias=d_bpbias;
+        this.d_bpmat=d_bpmat;
+        this.d_bpbias=d_bpbias;
 
         receive(HL);
 
@@ -688,8 +688,8 @@ class bpHidenLayer extends HidenLayer{
         this.KernelCount=new Array_Kernel(nkn);
         this.bias=bias;
 
-        bpAPI.d_bpmat=d_bpmat;
-        bpAPI.d_bpbias=d_bpbias;
+        this.d_bpmat=d_bpmat;
+        this.d_bpbias=d_bpbias;
 
         receive(IL);
     }
@@ -699,8 +699,8 @@ class bpHidenLayer extends HidenLayer{
         this.KernelCount=new Array_Kernel(nkn);
         this.bias=bias;
 
-        bpAPI.d_bpmat=d_bpmat;
-        bpAPI.d_bpbias=d_bpbias;
+        this.d_bpmat=d_bpmat;
+        this.d_bpbias=d_bpbias;
 
         receive(IL_mat);
     }
@@ -711,8 +711,8 @@ class bpHidenLayer extends HidenLayer{
         this.KernelCount=new Array_Kernel(nkn);
         this.bias=bias;
 
-        bpAPI.d_bpmat=d_bpmat;
-        bpAPI.d_bpbias=d_bpbias;
+        this.d_bpmat=d_bpmat;
+        this.d_bpbias=d_bpbias;
 
         receive(HL);
     }
@@ -722,8 +722,8 @@ class bpHidenLayer extends HidenLayer{
         this.KernelCount= new Array_Kernel(AK_size);
         biasIniting(KernelCount.length);
 
-        bpAPI.d_bpmat=d_bpmat;
-        bpAPI.d_bpbias=d_bpbias;
+        this.d_bpmat=d_bpmat;
+        this.d_bpbias=d_bpbias;
 
         receive(PM);
     }
@@ -733,8 +733,8 @@ class bpHidenLayer extends HidenLayer{
         this.KernelCount=new Array_Kernel(nkn);
         this.bias=bias;
 
-        bpAPI.d_bpmat=d_bpmat;
-        bpAPI.d_bpbias=d_bpbias;
+        this.d_bpmat=d_bpmat;
+        this.d_bpbias=d_bpbias;
 
         receive(PM);
     }
@@ -764,8 +764,8 @@ class bpHidenLayer extends HidenLayer{
 
                     double multiple=matrix[band][y][x]/mat[band][y][x];
 
-                    for(int nu=0;nu<bpAPI.d_bpmat.size();nu++){
-                        double[][][][][][][] norm_bpmatt=(double[][][][][][][]) bpAPI.d_bpmat.get(nu);
+                    for(int nu=0;nu<this.d_bpmat.size();nu++){
+                        double[][][][][][][] norm_bpmatt=(double[][][][][][][]) this.d_bpmat.get(nu);
                         for (int t=0;t<norm_bpmatt.length;t++){
                             for(int tt=0;tt<norm_bpmatt[0].length;tt++){
                                 for(int ttt=0;ttt<norm_bpmatt[0][0].length;ttt++){
@@ -775,7 +775,7 @@ class bpHidenLayer extends HidenLayer{
                                     }
                                 }
                             }
-                            ((double[][][][]) bpAPI.d_bpbias.get(nu))[t][band][y][x]*=multiple;
+                            ((double[][][][]) this.d_bpbias.get(nu))[t][band][y][x]*=multiple;
                         }
                     }
                 }
@@ -852,8 +852,8 @@ class bpPoolMat extends PoolMat{
     HashMap new_d_bpbias=new HashMap();
 
     void init_new(bpHidenLayer HL){
-        for(int t=0;t<bpAPI.d_bpmat.size();t++){
-            double[][][][][][][] bpmatt= (double[][][][][][][]) bpAPI.d_bpmat.get(t);
+        for(int t=0;t<this.d_bpmat.size();t++){
+            double[][][][][][][] bpmatt= (double[][][][][][][]) this.d_bpmat.get(t);
             int len_1=bpmatt.length;
             int len_2=bpmatt[0].length;
             int len_3=bpmatt[0][0].length;
@@ -892,12 +892,12 @@ class bpPoolMat extends PoolMat{
                             for(int tt=0;tt<bpmatt[0].length;tt++){
                                 for(int ttt=0;ttt<bpmatt[0][0].length;ttt++){
                                     for(int tttt=0;tttt<bpmatt[0][0].length;tttt++){
-                                        bpmatt[t][tt][ttt][tttt][band][y][x]=((double[][][][][][][])bpAPI.d_bpmat.get(nu))[t][tt][ttt][tttt][band][y*poolSize+ny][x*poolSize+nx];
+                                        bpmatt[t][tt][ttt][tttt][band][y][x]=((double[][][][][][][])this.d_bpmat.get(nu))[t][tt][ttt][tttt][band][y*poolSize+ny][x*poolSize+nx];
 
                                     }
                                 }
                             }
-                            ((double[][][][]) new_d_bpbias.get(nu))[t][band][y][x]=((double[][][][])bpAPI.d_bpbias.get(nu))[t][band][y*poolSize+ny][x*poolSize+nx];
+                            ((double[][][][]) new_d_bpbias.get(nu))[t][band][y][x]=((double[][][][])this.d_bpbias.get(nu))[t][band][y*poolSize+ny][x*poolSize+nx];
                         }
                         //System.out.println(Arrays.deepToString(bpmatt));
                     }
@@ -906,10 +906,10 @@ class bpPoolMat extends PoolMat{
             }
         }
 
-        bpAPI.d_bpmat.clear();
-        bpAPI.d_bpmat.putAll(new_d_bpmat);
-        bpAPI.d_bpbias.clear();
-        bpAPI.d_bpbias.putAll(new_d_bpbias);
+        this.d_bpmat.clear();
+        this.d_bpmat.putAll(new_d_bpmat);
+        this.d_bpbias.clear();
+        this.d_bpbias.putAll(new_d_bpbias);
 
     }
 
@@ -944,7 +944,7 @@ class bpPoolMat extends PoolMat{
                                     for(int tttt=0;tttt<bpmatt[0][0].length;tttt++){
                                         for (int ps1=0;ps1<poolSize;ps1++){
                                             for (int ps2=0;ps2<poolSize;ps2++){
-                                                bpmatt[t][tt][ttt][tttt][band][y][x]+=((((double[][][][][][][])bpAPI.d_bpmat.get(nu))[t][tt][ttt][tttt][band][y*poolSize+ps1][x*poolSize+ps2])/mean_mat[ps1][ps2]);
+                                                bpmatt[t][tt][ttt][tttt][band][y][x]+=((((double[][][][][][][])this.d_bpmat.get(nu))[t][tt][ttt][tttt][band][y*poolSize+ps1][x*poolSize+ps2])/mean_mat[ps1][ps2]);
                                             }
                                         }
                                         bpmatt[t][tt][ttt][tttt][band][y][x]/=PS_squre;
@@ -953,7 +953,7 @@ class bpPoolMat extends PoolMat{
                             }
                             for (int ps1=0;ps1<poolSize;ps1++){
                                 for (int ps2=0;ps2<poolSize;ps2++){
-                                    ((double[][][][]) new_d_bpbias.get(nu))[t][band][y][x]+=((((double[][][][])bpAPI.d_bpbias.get(nu))[t][band][y*poolSize+ps1][x*poolSize+ps2])/mean_mat[ps1][ps2]);
+                                    ((double[][][][]) new_d_bpbias.get(nu))[t][band][y][x]+=((((double[][][][])this.d_bpbias.get(nu))[t][band][y*poolSize+ps1][x*poolSize+ps2])/mean_mat[ps1][ps2]);
                                 }
                             }
                             ((double[][][][]) new_d_bpbias.get(nu))[t][band][y][x]/=PS_squre;
@@ -962,10 +962,10 @@ class bpPoolMat extends PoolMat{
                 }
             }
         }
-        bpAPI.d_bpmat.clear();
-        bpAPI.d_bpmat.putAll(new_d_bpmat);
-        bpAPI.d_bpbias.clear();
-        bpAPI.d_bpbias.putAll(new_d_bpbias);
+        this.d_bpmat.clear();
+        this.d_bpmat.putAll(new_d_bpmat);
+        this.d_bpbias.clear();
+        this.d_bpbias.putAll(new_d_bpbias);
     }
 
 
@@ -973,8 +973,8 @@ class bpPoolMat extends PoolMat{
 
         super(HL,poolSize,poolType);
 
-        bpAPI.d_bpmat=d_bpmat;
-        bpAPI.d_bpbias=d_bpbias;
+        this.d_bpmat=d_bpmat;
+        this.d_bpbias=d_bpbias;
 
         if (poolType=="max"){
             pm_max(HL,poolSize);
@@ -1134,8 +1134,8 @@ class bpFC extends FC{                                  //新的bpmat和bpbias�
         bpmat=new double[KernelCount.length][KernelCount.nBandCount][KernelCount.size_Kernel][KernelCount.size_Kernel][KernelCount.length];
         bpbias=new double[KernelCount.length][KernelCount.length];
         if (sw==0){
-            for(int nu=0;nu<bpAPI.d_bpmat.size();nu++){
-                double[][][][][][][] bpmatt= (double[][][][][][][]) bpAPI.d_bpmat.get(nu);
+            for(int nu=0;nu<this.d_bpmat.size();nu++){
+                double[][][][][][][] bpmatt= (double[][][][][][][]) this.d_bpmat.get(nu);
                 int len_1=bpmatt.length;
                 int len_2=bpmatt[0].length;
                 int len_3=bpmatt[0][0].length;
@@ -1144,8 +1144,8 @@ class bpFC extends FC{                                  //新的bpmat和bpbias�
             }
         }
         if (sw==1){
-            for(int nu=0;nu<bpAPI.d_bpmat.size();nu++){
-                double[][][][][] bpmatt= (double[][][][][]) bpAPI.d_bpmat.get(nu);
+            for(int nu=0;nu<this.d_bpmat.size();nu++){
+                double[][][][][] bpmatt= (double[][][][][]) this.d_bpmat.get(nu);
                 int len_1=bpmatt.length;
                 int len_2=bpmatt[0].length;
                 int len_3=bpmatt[0][0].length;
@@ -1167,9 +1167,9 @@ class bpFC extends FC{                                  //新的bpmat和bpbias�
                         bpbias[i][i]=1;
                         //bpbias[i][i]=bias[i];
 
-                        for(int nu=0;nu<bpAPI.d_bpmat.size();nu++){
+                        for(int nu=0;nu<this.d_bpmat.size();nu++){
                             double[][][][][] new_bpmatt=(double[][][][][]) new_d_bpmat.get(nu);
-                            double[][][][][][][] old_bpmatt=(double[][][][][][][]) bpAPI.d_bpmat.get(nu);
+                            double[][][][][][][] old_bpmatt=(double[][][][][][][]) this.d_bpmat.get(nu);
                             for (int t=0;t<new_bpmatt.length;t++) {
                                 for (int tt = 0; tt < new_bpmatt[0].length; tt++) {
                                     for (int ttt = 0; ttt < new_bpmatt[0][0].length; ttt++) {
@@ -1178,7 +1178,7 @@ class bpFC extends FC{                                  //新的bpmat和bpbias�
                                         }
                                     }
                                 }
-                                ((double[][])new_d_bpbias.get(nu))[t][i]+=(((double[][][][])bpAPI.d_bpbias.get(nu))[t][band][y][x]*KernelCount.AK[i][band][y][x]);
+                                ((double[][])new_d_bpbias.get(nu))[t][i]+=(((double[][][][])this.d_bpbias.get(nu))[t][band][y][x]*KernelCount.AK[i][band][y][x]);
                             }
                         }
                     }
@@ -1187,17 +1187,17 @@ class bpFC extends FC{                                  //新的bpmat和bpbias�
             vector[i]= n+ bias[i];
         }
 
-        bpAPI.d_bpmat.clear();
-        bpAPI.d_bpmat.putAll(new_d_bpmat);
-        bpAPI.d_bpmat.put(bpAPI.d_bpmat.size(),bpmat);
-        bpAPI.d_bpbias.clear();
-        bpAPI.d_bpbias.putAll(new_d_bpbias);
-        bpAPI.d_bpbias.put(bpAPI.d_bpbias.size(),bpbias);
+        this.d_bpmat.clear();
+        this.d_bpmat.putAll(new_d_bpmat);
+        this.d_bpmat.put(this.d_bpmat.size(),bpmat);
+        this.d_bpbias.clear();
+        this.d_bpbias.putAll(new_d_bpbias);
+        this.d_bpbias.put(this.d_bpbias.size(),bpbias);
 
-        /*bpAPI.d_bpmat=new_d_bpmat;
-        bpAPI.d_bpmat.put(bpAPI.d_bpmat.size(),bpmat);
-        bpAPI.d_bpbias=new_d_bpbias;
-        bpAPI.d_bpbias.put(bpAPI.d_bpbias.size(),bpbias);*/
+        /*this.d_bpmat=new_d_bpmat;
+        this.d_bpmat.put(this.d_bpmat.size(),bpmat);
+        this.d_bpbias=new_d_bpbias;
+        this.d_bpbias.put(this.d_bpbias.size(),bpbias);*/
 
         //bpAPI.d_kenel.put(bpAPI.d_kenel.size(),KernelCount.AK);
         //bpAPI.d_bias.put(bpAPI.d_bias.size(),bias);
@@ -1205,8 +1205,8 @@ class bpFC extends FC{                                  //新的bpmat和bpbias�
     }
     bpFC(bpPoolMat PM, int[] AK_size,HashMap d_bpmat,HashMap d_bpbias){
 
-        bpAPI.d_bpmat=d_bpmat;
-        bpAPI.d_bpbias=d_bpbias;
+        this.d_bpmat=d_bpmat;
+        this.d_bpbias=d_bpbias;
 
         int[] ak_size={AK_size[0],AK_size[1],PM.ySize};
         KernelCount= new Array_Kernel(ak_size);
@@ -1218,8 +1218,8 @@ class bpFC extends FC{                                  //新的bpmat和bpbias�
 
     bpFC(bpPoolMat PM, double[][][][] AK,double[] bias,HashMap d_bpmat,HashMap d_bpbias){
 
-        bpAPI.d_bpmat=d_bpmat;
-        bpAPI.d_bpbias=d_bpbias;
+        this.d_bpmat=d_bpmat;
+        this.d_bpbias=d_bpbias;
 
         KernelCount=new Array_Kernel(AK);
         this.bias=bias;
@@ -1239,9 +1239,9 @@ class bpFC extends FC{                                  //新的bpmat和bpbias�
                 bpbias[i][i]=1;
                 //bpbias[i][i]=bias[i];
 
-                for(int nu=0;nu<bpAPI.d_bpmat.size();nu++) {
+                for(int nu=0;nu<this.d_bpmat.size();nu++) {
                     double[][][][][] new_bpmatt = (double[][][][][]) new_d_bpmat.get(nu);
-                    double[][][][][] old_bpmatt = (double[][][][][]) bpAPI.d_bpmat.get(nu);
+                    double[][][][][] old_bpmatt = (double[][][][][]) this.d_bpmat.get(nu);
                     for (int t = 0; t < new_bpmatt.length; t++) {
                         for (int tt = 0; tt < new_bpmatt[0].length; tt++) {
                             for (int ttt = 0; ttt < new_bpmatt[0][0].length; ttt++) {
@@ -1250,24 +1250,24 @@ class bpFC extends FC{                                  //新的bpmat和bpbias�
                                 }
                             }
                         }
-                        ((double[][])new_d_bpbias.get(nu))[t][i]+=(((double[][])bpAPI.d_bpbias.get(nu))[t][band]*KernelCount.AK[i][band][0][0]);
+                        ((double[][])new_d_bpbias.get(nu))[t][i]+=(((double[][])this.d_bpbias.get(nu))[t][band]*KernelCount.AK[i][band][0][0]);
                     }
                 }
             }
             vector[i]=n+bias[i];
         }
 
-        bpAPI.d_bpmat.clear();
-        bpAPI.d_bpmat.putAll(new_d_bpmat);
-        bpAPI.d_bpmat.put(bpAPI.d_bpmat.size(),bpmat);
-        bpAPI.d_bpbias.clear();
-        bpAPI.d_bpbias.putAll(new_d_bpbias);
-        bpAPI.d_bpbias.put(bpAPI.d_bpbias.size(),bpbias);
+        this.d_bpmat.clear();
+        this.d_bpmat.putAll(new_d_bpmat);
+        this.d_bpmat.put(this.d_bpmat.size(),bpmat);
+        this.d_bpbias.clear();
+        this.d_bpbias.putAll(new_d_bpbias);
+        this.d_bpbias.put(this.d_bpbias.size(),bpbias);
 
-        /*bpAPI.d_bpmat=new_d_bpmat;
-        bpAPI.d_bpmat.put(bpAPI.d_bpmat.size(),bpmat);
-        bpAPI.d_bpbias=new_d_bpbias;
-        bpAPI.d_bpbias.put(bpAPI.d_bpbias.size(),bpbias);*/
+        /*this.d_bpmat=new_d_bpmat;
+        this.d_bpmat.put(this.d_bpmat.size(),bpmat);
+        this.d_bpbias=new_d_bpbias;
+        this.d_bpbias.put(this.d_bpbias.size(),bpbias);*/
 
         //bpAPI.d_kenel.put(bpAPI.d_kenel.size(),KernelCount.AK);
         //bpAPI.d_bias.put(bpAPI.d_bias.size(),bias);
@@ -1275,8 +1275,8 @@ class bpFC extends FC{                                  //新的bpmat和bpbias�
 
     bpFC(bpFC fc,int[] AK_size,HashMap d_bpmat,HashMap d_bpbias){
 
-        bpAPI.d_bpmat=d_bpmat;
-        bpAPI.d_bpbias=d_bpbias;
+        this.d_bpmat=d_bpmat;
+        this.d_bpbias=d_bpbias;
 
         int[] ak_size={AK_size[0],AK_size[1],1};
         KernelCount= new Array_Kernel(ak_size);
@@ -1288,8 +1288,8 @@ class bpFC extends FC{                                  //新的bpmat和bpbias�
 
     bpFC(bpFC fc,double[][][][] AK,double[] bias,HashMap d_bpmat,HashMap d_bpbias){
 
-        bpAPI.d_bpmat=d_bpmat;
-        bpAPI.d_bpbias=d_bpbias;
+        this.d_bpmat=d_bpmat;
+        this.d_bpbias=d_bpbias;
 
         KernelCount=new Array_Kernel(AK);
         this.bias=bias;
@@ -1314,8 +1314,8 @@ class bpFC extends FC{                                  //新的bpmat和bpbias�
             vec[band]=((vector[band]-min)/span);
 
             double multiple=vec[band]/vector[band];
-            for(int nu=0;nu<bpAPI.d_bpmat.size();nu++){
-                double[][][][][] norm_bpmatt=(double[][][][][]) bpAPI.d_bpmat.get(nu);
+            for(int nu=0;nu<this.d_bpmat.size();nu++){
+                double[][][][][] norm_bpmatt=(double[][][][][]) this.d_bpmat.get(nu);
                 for (int t=0;t<norm_bpmatt.length;t++){
                     for(int tt=0;tt<norm_bpmatt[0].length;tt++){
                         for(int ttt=0;ttt<norm_bpmatt[0][0].length;ttt++){
@@ -1324,7 +1324,7 @@ class bpFC extends FC{                                  //新的bpmat和bpbias�
                             }
                         }
                     }
-                    ((double[][]) bpAPI.d_bpbias.get(nu))[t][band]*=multiple;
+                    ((double[][]) this.d_bpbias.get(nu))[t][band]*=multiple;
                 }
             }
         }
@@ -1376,8 +1376,8 @@ class bpOutputLayer extends bpFC{
             vec[band]=vector[band]/sum;
 
             double multiple=vec[band]/vector[band];
-            for(int nu=0;nu<bpAPI.d_bpmat.size();nu++){
-                double[][][][][] norm_bpmatt=(double[][][][][]) bpAPI.d_bpmat.get(nu);
+            for(int nu=0;nu<this.d_bpmat.size();nu++){
+                double[][][][][] norm_bpmatt=(double[][][][][]) this.d_bpmat.get(nu);
                 for (int t=0;t<norm_bpmatt.length;t++){
                     for(int tt=0;tt<norm_bpmatt[0].length;tt++){
                         for(int ttt=0;ttt<norm_bpmatt[0][0].length;ttt++){
@@ -1386,7 +1386,7 @@ class bpOutputLayer extends bpFC{
                             }
                         }
                     }
-                    ((double[][]) bpAPI.d_bpbias.get(nu))[t][band]*=multiple;
+                    ((double[][]) this.d_bpbias.get(nu))[t][band]*=multiple;
                 }
             }
         }
@@ -1424,7 +1424,7 @@ class bpFinal{
 
     HashMap d_bpmat;
     HashMap d_bpbias;
-    HashMap d_kenel;
+    HashMap d_kernel;
     HashMap d_bias;
 
     double[] l_mse;
@@ -1434,8 +1434,8 @@ class bpFinal{
     HashMap new_d_bpbias=new HashMap();
 
     void init_new(){
-        for(int nu=0;nu<bpAPI.d_bpmat.size();nu++){
-            double[][][][][] bpmatt= (double[][][][][]) bpAPI.d_bpmat.get(nu);
+        for(int nu=0;nu<this.d_bpmat.size();nu++){
+            double[][][][][] bpmatt= (double[][][][][]) this.d_bpmat.get(nu);
             int len_1=bpmatt.length;
             int len_2=bpmatt[0].length;
             int len_3=bpmatt[0][0].length;
@@ -1465,19 +1465,19 @@ class bpFinal{
         //System.out.println(countmse);
     }
 
-    bpFinal(bpOutputLayer fc,double[] real_score,double step,HashMap d_bpmat,HashMap d_bpbias,HashMap d_kenel,HashMap d_bias){
-        bpAPI.d_bpmat=d_bpmat;
-        bpAPI.d_bpbias=d_bpbias;
-        bpAPI.d_kenel=d_kenel;
-        bpAPI.d_bias=d_bias;
+    bpFinal(bpOutputLayer fc,double[] real_score,double step,HashMap d_bpmat,HashMap d_bpbias,HashMap d_kernel,HashMap d_bias){
+        this.d_bpmat=d_bpmat;
+        this.d_bpbias=d_bpbias;
+        this.d_kernel=d_kernel;
+        this.d_bias=d_bias;
 
 
         this.step=step;
         init_new();
         l_mse=new double[real_score.length];
         printmse(fc,real_score);
-        for(int nu=0;nu<bpAPI.d_bpmat.size();nu++){
-            double[][][][][] bpmat=(double[][][][][])bpAPI.d_bpmat.get(nu);
+        for(int nu=0;nu<this.d_bpmat.size();nu++){
+            double[][][][][] bpmat=(double[][][][][])this.d_bpmat.get(nu);
             for(int t=0;t<fc.vector.length;t++){
                 for(int i=0;i<bpmat.length;i++){
                     for(int band=0;band<bpmat[0].length;band++){
@@ -1490,34 +1490,41 @@ class bpFinal{
                         }
                     }
                     //((double[][])bpAPI.d_bpbias.get(nu))[i][t] *=l_mse[t];
-                    ((double[])new_d_bpbias.get(nu))[i]+=(((double[][])bpAPI.d_bpbias.get(nu))[i][t] *l_mse[t]);
+                    ((double[])new_d_bpbias.get(nu))[i]+=(((double[][])this.d_bpbias.get(nu))[i][t] *l_mse[t]);
                 }
             }
         }
 
-        bpAPI.d_bpmat.clear();
-        bpAPI.d_bpmat.putAll(new_d_bpmat);
+        this.d_bpmat.clear();
+        this.d_bpmat.putAll(new_d_bpmat);
 
-        bpAPI.d_bpbias.clear();
-        bpAPI.d_bpbias.putAll(new_d_bpbias);
+        this.d_bpbias.clear();
+        this.d_bpbias.putAll(new_d_bpbias);
 
-        //bpAPI.d_bpmat=new_d_bpmat;
-        //bpAPI.d_bpbias=new_d_bpbias;
+        //this.d_bpmat=new_d_bpmat;
+        //this.d_bpbias=new_d_bpbias;
     }
 
     void update(){
-        for(int nu=0;nu<bpAPI.d_bpmat.size();nu++){
-            double[][][][] bpmat=(double[][][][])bpAPI.d_kenel.get(nu);
-            double[][][][] kernel=(double[][][][])new_d_bpmat.get(nu);
-            for(int i=0;i<bpmat.length;i++){
-                for(int band=0;band<bpmat[0].length;band++){
-                    for(int y=0;y<bpmat[0][0].length;y++){
-                        for(int x=0;x<bpmat[0][0].length;x++){
-                            bpmat[i][band][y][x]-=(step*kernel[i][band][y][x]);
+        System.out.println(this.d_bpmat.size());
+        for(int nu=0;nu<this.d_bpmat.size();nu++){
+            double[][][][] kernel=(double[][][][])this.d_kernel.get(nu);
+            double[][][][] bpmat=(double[][][][])this.d_bpmat.get(nu);
+            System.out.println(Arrays.deepToString(kernel));
+            System.out.println(Arrays.deepToString(bpmat));
+        }
+        for(int nu=0;nu<this.d_bpmat.size();nu++){
+            double[][][][] kernel=(double[][][][])this.d_kernel.get(nu);
+            double[][][][] bpmat=(double[][][][])this.d_bpmat.get(nu);
+            for(int i=0;i<kernel.length;i++){
+                for(int band=0;band<kernel[0].length;band++){
+                    for(int y=0;y<kernel[0][0].length;y++){
+                        for(int x=0;x<kernel[0][0].length;x++){
+                            kernel[i][band][y][x]-=(step*bpmat[i][band][y][x]);
                         }
                     }
                 }
-                ((double[])bpAPI.d_bias.get(nu))[i]-=(step*(((double[])bpAPI.d_bpbias.get(nu))[i]));
+                ((double[])this.d_bias.get(nu))[i]-=(step*(((double[])this.d_bpbias.get(nu))[i]));
             }
         }
         //bpAPI.d_bpmat=new HashMap();
@@ -1525,22 +1532,23 @@ class bpFinal{
     }
 
     HashMap return_d_kernel(){
-        return bpAPI.d_kenel;
+        return this.d_kernel;
     }
 
     HashMap return_d_bias(){
-        return bpAPI.d_bias;
+        return this.d_bias;
     }
 
 }
 
 class Net{
 
-
+    HashMap d_kernel=new HashMap<Integer,double[][][][]>();
+    HashMap d_bias=new HashMap<Integer,double[]>();
 
     Net(String namestr) {
 
-        int[][] WC_size = {{10, 3, 5},
+        int[][] WC_size = {{10, 4, 5},
                 {10, 10, 5},
                 {10, 10, 3},
                 {6,10,0},
@@ -1550,41 +1558,67 @@ class Net{
 
         InputLayer IL = new InputLayer(namestr);
         HidenLayer HL_0 = new HidenLayer(IL, 1, WC_size[0]);
-        bpAPI.d_kenel.put(bpAPI.d_kenel.size(),HL_0.KernelCount.AK);
-        bpAPI.d_bias.put(bpAPI.d_bias.size(),HL_0.bias);
+        d_kernel.put(d_kernel.size(),HL_0.KernelCount.AK);
+        d_bias.put(d_bias.size(),HL_0.bias);
         HL_0.norm();
         //HL_0.relu();
         PoolMat PM_0=new PoolMat(HL_0,2,"max");
         HidenLayer HL_1 = new HidenLayer(PM_0, 1, WC_size[1]);
-        bpAPI.d_kenel.put(bpAPI.d_kenel.size(),HL_1.KernelCount.AK);
-        bpAPI.d_bias.put(bpAPI.d_bias.size(),HL_1.bias);
+        d_kernel.put(d_kernel.size(),HL_1.KernelCount.AK);
+        d_bias.put(d_bias.size(),HL_1.bias);
         HL_1.norm();
         //HL_1.relu();
         PoolMat PM_1=new PoolMat(HL_1,2,"max");
         HidenLayer HL_2 = new HidenLayer(PM_1, 1, WC_size[2]);
-        bpAPI.d_kenel.put(bpAPI.d_kenel.size(),HL_2.KernelCount.AK);
-        bpAPI.d_bias.put(bpAPI.d_bias.size(),HL_2.bias);
+        d_kernel.put(d_kernel.size(),HL_2.KernelCount.AK);
+        d_bias.put(d_bias.size(),HL_2.bias);
         HL_2.norm();
         //HL_2.relu();
         PoolMat PM2=new PoolMat(HL_2,2,"max");
         FC FC_0=new FC(PM2,WC_size[3]);
-        bpAPI.d_kenel.put(bpAPI.d_kenel.size(),FC_0.KernelCount.AK);
-        bpAPI.d_bias.put(bpAPI.d_bias.size(),FC_0.bias);
+        d_kernel.put(d_kernel.size(),FC_0.KernelCount.AK);
+        d_bias.put(d_bias.size(),FC_0.bias);
         FC_0.norm();
         OutputLayer OP=new OutputLayer(FC_0,WC_size[4]);
-        bpAPI.d_kenel.put(bpAPI.d_kenel.size(),OP.KernelCount.AK);
-        bpAPI.d_bias.put(bpAPI.d_bias.size(),OP.bias);
+        d_kernel.put(d_kernel.size(),OP.KernelCount.AK);
+        d_bias.put(d_bias.size(),OP.bias);
 
         //long spanTime =  (System.currentTimeMillis()-startTime);
         //System.out.println(spanTime);
     }
 
-    Map return_d_kernel(){
-        return bpAPI.d_kenel;
+    Net(String ILnamestr,HashMap d_kenel,HashMap d_bias){
+
+        this.d_kernel.putAll(d_kenel);
+        this.d_bias.putAll(d_bias);
+
+        InputLayer IL = new InputLayer(ILnamestr);
+
+        HidenLayer HL_0 = new HidenLayer(IL, 1, (double[][][][])this.d_kernel.get(0),(double[])this.d_bias.get(0));
+        HL_0.norm();
+        HL_0.relu();
+        PoolMat PM_0=new PoolMat(HL_0,2,"max");
+        HidenLayer HL_1 = new HidenLayer(PM_0, 1, (double[][][][])this.d_kernel.get(1),(double[])this.d_bias.get(1));
+        HL_1.norm();
+        HL_1.relu();
+        PoolMat PM_1=new PoolMat(HL_1,2,"max");
+        HidenLayer HL_2 = new HidenLayer(PM_1, 1, (double[][][][])this.d_kernel.get(2),(double[])this.d_bias.get(2));
+        HL_2.norm();
+        HL_2.relu();
+        PoolMat PM2=new PoolMat(HL_2,2,"max");
+        FC FC_0=new FC(PM2,(double[][][][])this.d_kernel.get(3),(double[])this.d_bias.get(3));
+        FC_0.norm();
+        OutputLayer OP=new OutputLayer(FC_0,(double[][][][])this.d_kernel.get(4),(double[])this.d_bias.get(4));
+
     }
 
-    Map return_d_bias(){
-        return bpAPI.d_bias;
+
+    HashMap return_d_kernel(){
+        return this.d_kernel;
+    }
+
+    HashMap return_d_bias(){
+        return this.d_bias;
     }
 
     /*Net(String namestr) {
@@ -1633,7 +1667,13 @@ class Net{
 
 class bpNet {
 
-    int[][] kernel_mode= {{10, 3, 5},
+    HashMap d_bpmat=new HashMap();
+    HashMap d_bpbias=new HashMap();
+    HashMap d_kernel=new HashMap();
+    HashMap d_bias=new HashMap();
+    String bpnet_name;
+
+    int[][] kernel_mode= {{10, 4, 5},
             {10, 10, 5},
             {10, 10, 3},
             {6,10,0},
@@ -1641,53 +1681,132 @@ class bpNet {
     };
     double[] real_score={0,1,0};
 
-    bpNet(double[][][] IL_mat,HashMap d_kenel,HashMap d_bias){
+    void clone_kernel_bias(HashMap d_kernel,HashMap d_bias){
+        for(int i=0;i<d_kernel.size();i++){
+            double[][][][] kernel=((double[][][][]) d_kernel.get(i)).clone();
+            this.d_kernel.put(i,kernel);
+            double[] bias=((double[]) d_bias.get(i)).clone();
+            this.d_bias.put(i,bias);
+        }
+    }
 
-        bpAPI.d_kenel.putAll(d_kenel);
-        bpAPI.d_bias.putAll(d_bias);
+    bpNet(double[][][] IL_mat,HashMap d_kernel,HashMap d_bias){
 
-        bpHidenLayer bpHL_0 = new bpHidenLayer(IL_mat, 1, (double[][][][])bpAPI.d_kenel.get(0),(double[])bpAPI.d_bias.get(0),bpAPI.d_bpmat,bpAPI.d_bpbias);
+        clone_kernel_bias(d_kernel,d_bias);
+
+        bpHidenLayer bpHL_0 = new bpHidenLayer(IL_mat, 1, (double[][][][])this.d_kernel.get(0),(double[])this.d_bias.get(0),this.d_bpmat,this.d_bpbias);
         //System.out.print("0size of d_bpmat is ");
-        //System.out.println(bpAPI.d_bpmat.size());
+        //System.out.println(this.d_bpmat.size());
         bpHL_0.norm();
-        bpPoolMat bpPM_0=new bpPoolMat(bpHL_0,2,"max",bpAPI.d_bpmat,bpAPI.d_bpbias);
-        bpHidenLayer bpHL_1 = new bpHidenLayer(bpPM_0, 1, (double[][][][])bpAPI.d_kenel.get(1),(double[])bpAPI.d_bias.get(1),bpAPI.d_bpmat,bpAPI.d_bpbias);
+        bpPoolMat bpPM_0=new bpPoolMat(bpHL_0,2,"max",this.d_bpmat,this.d_bpbias);
+        bpHidenLayer bpHL_1 = new bpHidenLayer(bpPM_0, 1, (double[][][][])this.d_kernel.get(1),(double[])this.d_bias.get(1),this.d_bpmat,this.d_bpbias);
         //System.out.print("1size of d_bpmat is ");
-        //System.out.println(bpAPI.d_bpmat.size());
+        //System.out.println(this.d_bpmat.size());
         bpHL_1.norm();
-        bpPoolMat bpPM_1=new bpPoolMat(bpHL_1,2,"max",bpAPI.d_bpmat,bpAPI.d_bpbias);
-        bpHidenLayer bpHL_2 = new bpHidenLayer(bpPM_1, 1, (double[][][][])bpAPI.d_kenel.get(2),(double[])bpAPI.d_bias.get(2),bpAPI.d_bpmat,bpAPI.d_bpbias);
+        bpPoolMat bpPM_1=new bpPoolMat(bpHL_1,2,"max",this.d_bpmat,this.d_bpbias);
+        bpHidenLayer bpHL_2 = new bpHidenLayer(bpPM_1, 1, (double[][][][])this.d_kernel.get(2),(double[])this.d_bias.get(2),this.d_bpmat,this.d_bpbias);
         //System.out.print("2size of d_bpmat is ");
-        //System.out.println(bpAPI.d_bpmat.size());
+        //System.out.println(this.d_bpmat.size());
         bpHL_2.norm();
-        bpPoolMat bpPM_2=new bpPoolMat(bpHL_2,2,"max",bpAPI.d_bpmat,bpAPI.d_bpbias);
-        bpFC bpFC_0=new bpFC(bpPM_2,(double[][][][])bpAPI.d_kenel.get(3),(double[])bpAPI.d_bias.get(3),bpAPI.d_bpmat,bpAPI.d_bpbias);
+        bpPoolMat bpPM_2=new bpPoolMat(bpHL_2,2,"max",this.d_bpmat,this.d_bpbias);
+        bpFC bpFC_0=new bpFC(bpPM_2,(double[][][][])this.d_kernel.get(3),(double[])this.d_bias.get(3),this.d_bpmat,this.d_bpbias);
         //System.out.print("3size of d_bpmat is ");
-        //System.out.println(bpAPI.d_bpmat.size());
+        //System.out.println(this.d_bpmat.size());
         bpFC_0.norm();
-        bpOutputLayer bpOP=new bpOutputLayer(bpFC_0,(double[][][][])bpAPI.d_kenel.get(4),(double[])bpAPI.d_bias.get(4),bpAPI.d_bpmat,bpAPI.d_bpbias);
+        bpOutputLayer bpOP=new bpOutputLayer(bpFC_0,(double[][][][])this.d_kernel.get(4),(double[])this.d_bias.get(4),this.d_bpmat,this.d_bpbias);
         //System.out.print("4size of d_bpmat is ");
-        //System.out.println(bpAPI.d_bpmat.size());
-        bpFinal bf=new bpFinal(bpOP,real_score,0.2,bpAPI.d_bpmat,bpAPI.d_bpbias,bpAPI.d_kenel,bpAPI.d_bias);
+        //System.out.println(this.d_bpmat.size());
+        bpFinal bf=new bpFinal(bpOP,real_score,0.2,this.d_bpmat,this.d_bpbias,this.d_kernel,this.d_bias);
         bf.update();
-        bpAPI.d_bpmat=new HashMap();
-        bpAPI.d_bpbias=new HashMap();
 
-        HidenLayer HL_0 = new HidenLayer(IL_mat, 1, (double[][][][])bpAPI.d_kenel.get(0),(double[])bpAPI.d_bias.get(0));
+        HidenLayer HL_0 = new HidenLayer(IL_mat, 1, (double[][][][])this.d_kernel.get(0),(double[])this.d_bias.get(0));
         HL_0.norm();
         HL_0.relu();
         PoolMat PM_0=new PoolMat(HL_0,2,"max");
-        HidenLayer HL_1 = new HidenLayer(PM_0, 1, (double[][][][])bpAPI.d_kenel.get(1),(double[])bpAPI.d_bias.get(1));
+        HidenLayer HL_1 = new HidenLayer(PM_0, 1, (double[][][][])this.d_kernel.get(1),(double[])this.d_bias.get(1));
         HL_1.norm();
         HL_1.relu();
         PoolMat PM_1=new PoolMat(HL_1,2,"max");
-        HidenLayer HL_2 = new HidenLayer(PM_1, 1, (double[][][][])bpAPI.d_kenel.get(2),(double[])bpAPI.d_bias.get(2));
+        HidenLayer HL_2 = new HidenLayer(PM_1, 1, (double[][][][])this.d_kernel.get(2),(double[])this.d_bias.get(2));
         HL_2.norm();
         HL_2.relu();
         PoolMat PM2=new PoolMat(HL_2,2,"max");
-        FC FC_0=new FC(PM2,bpFC_0.KernelCount.AK,bpFC_0.bias);
+        FC FC_0=new FC(PM2,(double[][][][])this.d_kernel.get(3),(double[])this.d_bias.get(3));
         FC_0.norm();
-        OutputLayer OP=new OutputLayer(FC_0,(double[][][][])bpAPI.d_kenel.get(4),(double[])bpAPI.d_bias.get(4));
+        OutputLayer OP=new OutputLayer(FC_0,(double[][][][])this.d_kernel.get(4),(double[])this.d_bias.get(4));
+
+    }
+
+    double[][][] txtToMat(String txtName, int bandCount, int ySize, int xSize) throws IOException{
+
+        double[][][] mat=new double[bandCount][ySize][xSize];
+        BufferedReader in = new BufferedReader(new FileReader(txtName));
+        String str;
+        int band=0;
+        while ((str = in.readLine()) != null) {
+            //System.out.println(str);
+            String[] s_i=(str.split("\\]")[0]).split("\\[")[1].split("\\, ");
+
+            for(int y=0;y<50;y++){
+                for(int x=0;x<50;x++){
+                    mat[band][y][x]=Integer.parseInt(s_i[50*y+x]);
+                }
+            }
+            band+=1;
+            //System.out.println(s_i[2499]);
+        }
+
+        return mat;
+
+    }
+
+    bpNet(String ILnamestr,HashMap d_kernel,HashMap d_bias){
+
+        clone_kernel_bias(d_kernel,d_bias);
+
+        double[][][] IL_mat= new double[0][][];
+
+        try {
+            IL_mat = txtToMat(ILnamestr,4,50,50);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        for(int i=0;i<this.d_kernel.size();i++){
+            String strr="d_k "+i+Arrays.deepToString((double[][][][])this.d_kernel.get(i));
+            System.out.println(strr);
+        }
+
+        bpHidenLayer bpHL_0 = new bpHidenLayer(IL_mat, 1, (double[][][][])this.d_kernel.get(0),(double[])this.d_bias.get(0),this.d_bpmat,this.d_bpbias);
+        bpHL_0.norm();
+        bpPoolMat bpPM_0=new bpPoolMat(bpHL_0,2,"max",this.d_bpmat,this.d_bpbias);
+        bpHidenLayer bpHL_1 = new bpHidenLayer(bpPM_0, 1, (double[][][][])this.d_kernel.get(1),(double[])this.d_bias.get(1),this.d_bpmat,this.d_bpbias);
+        bpHL_1.norm();
+        bpPoolMat bpPM_1=new bpPoolMat(bpHL_1,2,"max",this.d_bpmat,this.d_bpbias);
+        bpHidenLayer bpHL_2 = new bpHidenLayer(bpPM_1, 1, (double[][][][])this.d_kernel.get(2),(double[])this.d_bias.get(2),this.d_bpmat,this.d_bpbias);
+        bpHL_2.norm();
+        bpPoolMat bpPM_2=new bpPoolMat(bpHL_2,2,"max",this.d_bpmat,this.d_bpbias);
+        bpFC bpFC_0=new bpFC(bpPM_2,(double[][][][])this.d_kernel.get(3),(double[])this.d_bias.get(3),this.d_bpmat,this.d_bpbias);
+        bpFC_0.norm();
+        bpOutputLayer bpOP=new bpOutputLayer(bpFC_0,(double[][][][])this.d_kernel.get(4),(double[])this.d_bias.get(4),this.d_bpmat,this.d_bpbias);
+        bpFinal bf=new bpFinal(bpOP,real_score,0.2,this.d_bpmat,this.d_bpbias,this.d_kernel,this.d_bias);
+        bf.update();
+
+        HidenLayer HL_0 = new HidenLayer(IL_mat, 1, (double[][][][])this.d_kernel.get(0),(double[])this.d_bias.get(0));
+        HL_0.norm();
+        HL_0.relu();
+        PoolMat PM_0=new PoolMat(HL_0,2,"max");
+        HidenLayer HL_1 = new HidenLayer(PM_0, 1, (double[][][][])this.d_kernel.get(1),(double[])this.d_bias.get(1));
+        HL_1.norm();
+        HL_1.relu();
+        PoolMat PM_1=new PoolMat(HL_1,2,"max");
+        HidenLayer HL_2 = new HidenLayer(PM_1, 1, (double[][][][])this.d_kernel.get(2),(double[])this.d_bias.get(2));
+        HL_2.norm();
+        HL_2.relu();
+        PoolMat PM2=new PoolMat(HL_2,2,"max");
+        FC FC_0=new FC(PM2,(double[][][][])this.d_kernel.get(3),(double[])this.d_bias.get(3));
+        FC_0.norm();
+        OutputLayer OP=new OutputLayer(FC_0,(double[][][][])this.d_kernel.get(4),(double[])this.d_bias.get(4));
 
     }
 
@@ -1695,6 +1814,7 @@ class bpNet {
 
 
         InputLayer IL = new InputLayer(ILnamestr);
+
 
         bpHidenLayer bpHL_0 = new bpHidenLayer(IL, 1, (double[][][][])bpAPI.d_kenel.get(0),(double[])bpAPI.d_bias.get(0),bpAPI.d_bpmat,bpAPI.d_bpbias);
         bpHL_0.norm();
@@ -1726,13 +1846,11 @@ class bpNet {
         HL_2.norm();
         HL_2.relu();
         PoolMat PM2=new PoolMat(HL_2,2,"max");
-        FC FC_0=new FC(PM2,bpFC_0.KernelCount.AK,bpFC_0.bias);
+        FC FC_0=new FC(PM2,(double[][][][])this.d_kernel.get(3),(double[])this.d_bias.get(3));
         FC_0.norm();
         OutputLayer OP=new OutputLayer(FC_0,(double[][][][])bpAPI.d_kenel.get(4),(double[])bpAPI.d_bias.get(4));
 
     }
-
-
 
 
 }
@@ -1759,7 +1877,6 @@ public class bp_threads implements Runnable{
         this.IL_name=IL_name;
     }
 
-
     void set_filename(String filename){
         filename=this.filename;
     }
@@ -1772,51 +1889,35 @@ public class bp_threads implements Runnable{
         return bp_threads.d_bias;
     }
 
-
     synchronized void update_kernel_bias(HashMap d_kernel,HashMap d_bias){
         bp_threads.d_kernel=d_kernel;
         bp_threads.d_bias=d_bias;
     }
 
-    public static double[][][] txtToMat(String txtName, int bandCount, int ySize, int xSize) throws IOException{
-
-        double[][][] mat=new double[bandCount][ySize][xSize];
-        BufferedReader in = new BufferedReader(new FileReader(txtName));
-        String str;
-        int band=0;
-        while ((str = in.readLine()) != null) {
-            System.out.println(str);
-            String[] s_i=(str.split("\\]")[0]).split("\\[")[1].split("\\, ");
-
-            for(int y=0;y<50;y++){
-                for(int x=0;x<50;x++){
-                    mat[band][y][x]=Integer.parseInt(s_i[50*y+x]);
-                }
-            }
-            band+=1;
-            //System.out.println(s_i[2499]);
+    void write_txt(HashMap map) throws IOException {
+        String targetfile="H://java_wk//remote_sensing_data//sz_1m//sz1m//a___cnn//yanzheng0422//"+thread_name+".txt";
+        BufferedWriter out = new BufferedWriter(new FileWriter(targetfile));
+        for (int i = 0; i < map.size(); i++) {
+            out.write(Arrays.deepToString((double[][][][])this.d_kernel.get(i)));
+            out.write("\n");
         }
-
-        return mat;
-
+        out.close();
     }
 
     @Override
     public void run(){
         System.out.println(this.thread_name+" starting");
-        //long startTime =  System.currentTimeMillis();
-        double[][][] IL_mat = new double[4][50][50];
+        long startTime =  System.currentTimeMillis();
+        bpNet bpn=new bpNet(this.IL_name,bp_threads.d_kernel,bp_threads.d_bias);
         try {
-            IL_mat=bp_threads.txtToMat(IL_name,4,50,50);
+            write_txt(bpn.d_kernel);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        bpNet bpn=new bpNet(IL_mat,d_kernel,d_bias);
-        //bpNet bpn=new bpNet(this.IL_name,d_kernel,d_bias);
-        update_kernel_bias(d_kernel,d_bias);
-        //long spanTime =  (System.currentTimeMillis()-startTime);
-        //System.out.print(this.thread_name+" spent ");
-        //System.out.println(spanTime);
+        //update_kernel_bias(d_kernel,d_bias);
+        long spanTime =  (System.currentTimeMillis()-startTime);
+        System.out.print(this.thread_name+" spent ");
+        System.out.println(spanTime);
     }
 
     public static void main(String[] args) {
@@ -1832,14 +1933,74 @@ public class bp_threads implements Runnable{
 
 
         long startTime;
-        Net n=new Net("H:\\java_wk\\remote_sensing_data\\uv\\uvs\\1.tif");
+        Net n=new Net("H://java_wk//remote_sensing_data//sz_1m//sz1m//a___cnn//reaction//redo//weifen//tiff//jianzhu//fangkuai_292_1055.tif");
 
-        int batchsize=10;
+        d_kernel= n.return_d_kernel();
+        d_bias= n.return_d_bias();
+
+
+        String namestrr1="H://java_wk//remote_sensing_data//sz_1m//sz1m//a___cnn//reaction//redo//train//jianzhu//fangkuai_292_1055.txt";
+
+        String namestrr2="H://java_wk//remote_sensing_data//sz_1m//sz1m//a___cnn//reaction//redo//train//jianzhu//fangkuai_292_1055.txt";
+
+        String namestrr3="H://java_wk//remote_sensing_data//sz_1m//sz1m//a___cnn//reaction//redo//train//jianzhu//fangkuai_292_1055.txt";
+
+        String namestrr4="H://java_wk//remote_sensing_data//sz_1m//sz1m//a___cnn//reaction//redo//train//jianzhu//fangkuai_297_1023.txt";
+
+        String namestrr5="H://java_wk//remote_sensing_data//sz_1m//sz1m//a___cnn//reaction//redo//train//jianzhu//fangkuai_297_1023.txt";
+
+        String namestrr6="H://java_wk//remote_sensing_data//sz_1m//sz1m//a___cnn//reaction//redo//train//jianzhu//fangkuai_297_1023.txt";
+
+        String namestrr7="H://java_wk//remote_sensing_data//sz_1m//sz1m//a___cnn//reaction//redo//train//jianzhu//fangkuai_297_1023.txt";
+
+        String namestrr8="H://java_wk//remote_sensing_data//sz_1m//sz1m//a___cnn//reaction//redo//train//jianzhu//fangkuai_297_1023.txt";
+
+        String namestrr9="H://java_wk//remote_sensing_data//sz_1m//sz1m//a___cnn//reaction//redo//train//jianzhu//fangkuai_297_1023.txt";
+
+
+
+        //bpNet bpn=new bpNet("bpnet1",IL1.mat,d_kernel,d_bias);
+
+        //bp_threads bpthread1=new bp_threads("thread1",IL1.mat);
+        //bp_threads bpthread2=new bp_threads("thread2",IL2.mat);
+        //bp_threads bpthread3=new bp_threads("thread3",IL3.mat);
+
+        bp_threads bpthread1=new bp_threads("thread1",namestrr1);
+        //bp_threads bpthread2=new bp_threads("thread2",namestrr2);
+        //bp_threads bpthread3=new bp_threads("thread3",namestrr3);
+        //bp_threads bpthread4=new bp_threads("thread4",namestrr4);
+        //bp_threads bpthread5=new bp_threads("thread5",namestrr5);
+        //bp_threads bpthread6=new bp_threads("thread6",namestrr6);
+        //bp_threads bpthread7=new bp_threads("thread7",namestrr7);
+        //bp_threads bpthread8=new bp_threads("thread8",namestrr8);
+        //bp_threads bpthread9=new bp_threads("thread9",namestrr9);
+
+        Thread t1 = new Thread(bpthread1);
+        //Thread t2 = new Thread(bpthread2);
+        //Thread t3 = new Thread(bpthread3);
+        //Thread t4 = new Thread(bpthread4);
+        //Thread t5 = new Thread(bpthread5);
+        //Thread t6 = new Thread(bpthread6);
+        //Thread t7 = new Thread(bpthread7);
+        //Thread t8 = new Thread(bpthread8);
+        //Thread t9 = new Thread(bpthread9);
+
+        t1.start();
+        //t2.start();
+        //t3.start();
+        //t4.start();
+        //t5.start();
+        //t6.start();
+        //t7.start();
+        //t8.start();
+        //t9.start();
+
+        /*int batchsize=10;
         bpNet bpn;
 
         long spanTime;
 
-        for (int batch=2;batch<=batchsize;batch++){
+        for (int batch=1;batch<=batchsize;batch++){
             startTime =  System.currentTimeMillis();
             String namestrr="H:\\java_wk\\remote_sensing_data\\uv\\uvs\\"+batch+".tif";
             bpn=new bpNet(namestrr);
@@ -1853,6 +2014,6 @@ public class bp_threads implements Runnable{
             System.out.println(bpAPI.d_bias.size());
             spanTime =  (System.currentTimeMillis()-startTime);
             System.out.println(spanTime);
-        }
+        }*/
     }
 }
